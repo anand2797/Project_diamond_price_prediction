@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Diamond Price Prediction </title>
+    <style>
+        body {
+            background-image: url("https://t3.ftcdn.net/jpg/02/99/34/04/360_F_299340425_zAmJoEr5QyQ9xeR6mSR13MXb4h8xA5Fz.jpg");
+            background-repeat: repeat-y;
+            background-size: cover;
+            background-position: center;
+        }
+        label{ color:purple }
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            margin-right: 5px;
+        }
+        .input-group input,
+        .input-group select {
+            width: 200px;
+        }
+        .heading-wrapper {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            padding: 10px;
+            font-size: 24px;
+        }
+        h2 {color: black;}
+        .hint-text {
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div>
+            <h1> -: DIAMOND PRICE PREDICTION :- </h1>
+        </div>
+        <form action="/predict" method="POST">
+            <div class="input-group">
+                <label for="carat">Carat:</label>
+                <input type="text" id="carat" name="carat" placeholder="example: 1.0, 0.75, 2.3" value="{{ carat }}" >
+            </div>
+
+            <div class="input-group">
+                <label for="cut">Quality of the Diamond's Cut:</label>
+                <select id="cut" name="cut">
+                    <option value="" disabled selected>Please Select</option>
+                    {% for value in cut_values %}
+                    <option value="{{ value }}" {% if value == cut %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="color">Color Grade of the Diamond:</label>
+                <select id="color" name="color">
+                    <option value="" disabled selected>Please Select</option>
+                    {% for value in color_values %}
+                    <option value="{{ value }}" {% if value == color %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="clarity">Clarity:</label>
+                <select id="clarity" name="clarity">
+                    <option value="" disabled selected>Please Select</option>
+                    {% for value in clarity_values %}
+                    <option value="{{ value }}" {% if value == clarity %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="depth">Depth (in %):</label>
+                <input type="text" id="depth" name="depth" placeholder="example: 61.5, 62.2, 59.8" value="{{ depth }}">
+            </div>
+
+            <div class="input-group">
+                <label for="table">Table (in %):</label>
+                <input type="text" id="table" name="table" placeholder="example: 61.0, 62.0, 59.0" value="{{ table }}">
+            </div>
+
+            <div class="input-group">
+                <label for="x">Size of x in millimeters:</label>
+                <input type="text" id="x" name="x" placeholder="example: 5.5, 6.2, 7.0" value="{{ x }}">
+            </div>
+
+            <div class="input-group">
+                <label for="y">Size of y in millimeters:</label>
+                <input type="text" id="y" name="y" placeholder="example: 5.5, 6.2, 7.0" value="{{ y }}">
+            </div>
+
+            <div class="input-group">
+                <label for="z">Size of z in millimeters:</label>
+                <input type="text" id="z" name="z" placeholder="example: 3.2, 4.0, 4.5" value="{{ z }}">
+            </div>
+
+            <input type="submit" value="Predict">
+        </form>
+        {% if price %}
+        <div class="heading-wrapper">
+            <h2>Prediction Result:</h2>
+            <p>The predicted price of required diamond is: <strong>{{ price }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
